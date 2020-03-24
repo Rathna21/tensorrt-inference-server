@@ -1,0 +1,96 @@
+syntax = "proto3";
+
+package inference;
+
+// The inference api service definition.
+service InferenceAPI {
+ 
+  // Get classification
+  rpc GetClassification (ImageRequest) returns (ImageClassification) {}
+  
+  // Get fashion detection
+  rpc GetFashionDetection (ImageRequest) returns (FashionDetection) {}
+
+  // Get fashion matching embedding for fashion-MNIST
+  rpc GetFashionMatchingMNIST (ImageRequest) returns (FashionMatchingMNIST) {}
+
+  // Get fashion matching embedding for dive-dataset-bottom
+  rpc GetFashionMatchingBottom (ImageRequest) returns (FashionMatchingBottom) {}
+  
+  // Get fashion matching embedding for dive-dataset-top
+  rpc GetFashionMatchingTop (ImageRequest) returns (FashionMatchingTop) {}
+
+  // Get fashion matching embedding for dive-dataset-full
+  rpc GetFashionMatchingFull (ImageRequest) returns (FashionMatchingFull) {}
+
+  // Get fashion crop and Get the matching embedding(top/ bottom/ full)
+  rpc GetFashionRecommendations (ImageRequest) returns (FashionRecommendations) {}
+
+}
+
+// Image Input
+message ImageRequest {
+  bytes image = 1; 
+}
+
+// Classification response
+message ImageClassification {
+  string taxonomy = 1;
+} 
+
+// Fashion Detection response 
+message FashionDetection {
+  
+  // Object which has the response details of
+  // of the detection fashion objects
+  repeated Detection detections = 1;
+  
+  // error field
+  string error = 2;
+}
+
+// Fashion Detection response object
+message Detection {
+  string taxonomy = 1;
+  float confidence_score = 2;
+  float y_min = 3;
+  float x_min = 4;
+  float y_max = 5;
+  float x_max = 6;
+  string type = 7;
+}
+
+message FashionMatchingMNIST {
+
+  string taxonomy = 1;
+  repeated int32 reco = 2;
+}
+
+
+message FashionMatchingBottom {
+
+  repeated int32 reco = 1;
+}
+
+
+message FashionMatchingTop {
+
+  repeated int32 reco = 1;
+}
+
+
+message FashionMatchingFull {
+
+  repeated int32 reco = 1;
+}
+
+message FashionRecommendations {
+
+  repeated FashionObject fashionObjects = 1;
+}
+
+message FashionObject {
+
+  string taxonomy = 1;
+  repeated int32 reco = 2;
+}

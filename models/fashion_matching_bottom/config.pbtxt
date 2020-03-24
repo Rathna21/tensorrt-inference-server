@@ -1,0 +1,34 @@
+name: "fashion_matching_bottom"
+platform: "tensorflow_graphdef"
+max_batch_size: 1
+version_policy:
+    {
+      latest: {
+		num_versions: 1
+	      }
+    }
+
+input [
+
+    {
+      name: "query_input"
+      data_type: TYPE_FP32
+      format: FORMAT_NHWC
+      dims: [ 299, 299, 3 ]
+    }
+]
+
+output [
+    {
+      name: "base_network/lambda_1/l2_normalize"
+      data_type: TYPE_FP32
+      dims: [ 2048 ]
+    }
+]
+
+instance_group [
+  {
+    kind: KIND_GPU,
+    gpus: [ 0 ]
+  }
+]

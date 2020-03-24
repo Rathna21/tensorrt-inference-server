@@ -1,0 +1,8 @@
+.ipynb
+.git
+.gitconfig
+.ipynb_checkpoints
+client_server/inf_ser/__pycache__
+.graphdef
+.onnx
+.ipynb_checkpoints

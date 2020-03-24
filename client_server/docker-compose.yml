@@ -1,0 +1,33 @@
+version: "2.3"
+
+services:
+    
+    trt-server:
+        image: nvcr.io/nvidia/tensorrtserver:19.07-py3
+        runtime: nvidia
+        environment:
+              - NVIDIA_VISIBLE_DEVICES=1
+        volumes:
+              - ../models:/models
+        ports:
+              - 8000:8000
+              - 8001:8001  
+              - 8002:8002
+        shm_size: 1g
+        ulimits:
+            memlock: -1
+            stack: 67108864        
+        command: ["trtserver", "--model-store=/models"]
+                 
+    inf-ser: 
+        build: ./inf-ser   
+        #image: inference_server   
+        ports:
+              - 6060:50053
+        volumes:
+              - ./inf-ser:/opt/inf-ser
+
+networks:
+        default:
+            name: 'inference-server-net'
+

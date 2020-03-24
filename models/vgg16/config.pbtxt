@@ -1,0 +1,29 @@
+name: "vgg16"
+platform: "onnxruntime_onnx"
+max_batch_size: 0
+input [
+    {
+      name: "data"
+      data_type: TYPE_FP32
+      dims: [ 3, 224, 224 ]
+      reshape { shape : [1, 3, 224, 224] }
+    }
+]
+
+output [
+    {
+      name: "vgg0_dense2_fwd"
+      data_type: TYPE_FP32
+      dims: [ 1000]
+      reshape { shape : [1, 1000] }
+      label_filename: "vgg_labels.txt"
+    }
+]
+
+instance_group [
+  {
+    kind: KIND_GPU,
+    gpus: [ 0 ]
+  }
+]
+
