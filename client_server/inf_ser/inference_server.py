@@ -15,55 +15,17 @@ from functools import partial
 import os
 import logging as log
 import object_classification
-import fashion_detection
 import fashion_matching_mnist
-import fashion_matching_bottom
-import fashion_matching_top
-import fashion_matching_full
-import fashion_reco
 
 
 class RequestDespatcher(inference_pb2_grpc.InferenceAPIServicer):
     """
     This is the class for dispatching the request to the corresponding services.
     """
-    def GetFashionRecommendations(self, request, context):
-        log.info("Fashion Reco Request")
-
-        return fashion_reco.FashionReco().GetFashionRecommendations(request, context)
-
-    def GetFashionMatchingFull(self, request, context):
-        log.info("Fashion Matching Full Request")
-
-        return fashion_matching_full.FashionMatchingFull().GetFashionMatchingFull(
-            request, context
-        )
-
-    def GetFashionMatchingTop(self, request, context):
-        log.info("Fashion Matching Top Request")
-
-        return fashion_matching_top.FashionMatchingTop().GetFashionMatchingTop(
-            request, context
-        )
-
-    def GetFashionMatchingBottom(self, request, context):
-        log.info("Fashion Matching Bottom Request")
-
-        return fashion_matching_bottom.FashionMatchingBottom().GetFashionMatchingBottom(
-            request, context
-        )
-
     def GetFashionMatchingMNIST(self, request, context):
         log.info("Fashion Matching MNIST Request")
 
         return fashion_matching_mnist.FashionMatchingMNIST().GetFashionMatchingMNIST(
-            request, context
-        )
-
-    def GetFashionDetection(self, request, context):
-        log.info("Fashion Detection Request")
-
-        return fashion_detection.FashionDetection().GetFashionDetection(
             request, context
         )
 
